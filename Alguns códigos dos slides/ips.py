@@ -5,6 +5,7 @@ def ip_ok(ip):
             return False
     return True
 
+
 arq = open('IPS.txt')
 validos = open('Válidos.txt', 'w')
 invalidos = open('Inválidos.txt', 'w')
@@ -16,4 +17,3 @@ for linha in arq.readlines():
 arq.close()
 validos.close()
 invalidos.close()
-

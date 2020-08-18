@@ -1,16 +1,18 @@
 import pygame, sys, random
 from pygame.locals import *
 
+
 def doRectsOverlap(rect1, rect2):
     for a, b in [(rect1, rect2), (rect2, rect1)]:
         # Check if a's corners are inside b
         if ((isPointInsideRect(a.left, a.top, b)) or
-            (isPointInsideRect(a.left, a.bottom, b)) or
-            (isPointInsideRect(a.right, a.top, b)) or
-            (isPointInsideRect(a.right, a.bottom, b))):
+                (isPointInsideRect(a.left, a.bottom, b)) or
+                (isPointInsideRect(a.right, a.top, b)) or
+                (isPointInsideRect(a.right, a.bottom, b))):
             return True
 
     return False
+
 
 def isPointInsideRect(x, y, rect):
     if (x > rect.left) and (x < rect.right) and (y > rect.top) and (y < rect.bottom):
@@ -46,10 +48,12 @@ WHITE = (255, 255, 255)
 foodCounter = 0
 NEWFOOD = 40
 FOODSIZE = 20
-bouncer = {'rect':pygame.Rect(300, 100, 50, 50), 'dir':UPLEFT}
+bouncer = {'rect': pygame.Rect(300, 100, 50, 50), 'dir': UPLEFT}
 foods = []
 for i in range(20):
-    foods.append(pygame.Rect(random.randint(0, WINDOWWIDTH - FOODSIZE), random.randint(0, WINDOWHEIGHT - FOODSIZE), FOODSIZE, FOODSIZE))
+    foods.append(
+        pygame.Rect(random.randint(0, WINDOWWIDTH - FOODSIZE), random.randint(0, WINDOWHEIGHT - FOODSIZE), FOODSIZE,
+                    FOODSIZE))
 
 # run the game loop
 while True:
@@ -63,7 +67,9 @@ while True:
     if foodCounter >= NEWFOOD:
         # add new food
         foodCounter = 0
-        foods.append(pygame.Rect(random.randint(0, WINDOWWIDTH - FOODSIZE), random.randint(0, WINDOWHEIGHT - FOODSIZE), FOODSIZE, FOODSIZE))
+        foods.append(
+            pygame.Rect(random.randint(0, WINDOWWIDTH - FOODSIZE), random.randint(0, WINDOWHEIGHT - FOODSIZE), FOODSIZE,
+                        FOODSIZE))
 
     # draw the black background onto the surface
     windowSurface.fill(BLACK)

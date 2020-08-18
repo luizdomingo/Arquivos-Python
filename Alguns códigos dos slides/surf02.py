@@ -18,4 +18,3 @@ f.close()
 print(primeiro)
 print(segundo)
 print(terceiro)
-        

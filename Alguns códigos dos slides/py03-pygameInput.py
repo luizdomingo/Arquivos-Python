@@ -1,4 +1,6 @@
-import pygame, sys, random
+import pygame
+import random
+import sys
 from pygame.locals import *
 
 # set up pygame
@@ -35,7 +37,6 @@ moveUp = False
 moveDown = False
 
 MOVESPEED = 6
-
 
 # run the game loop
 while True:
@@ -81,7 +82,9 @@ while True:
     if foodCounter >= NEWFOOD:
         # add new food
         foodCounter = 0
-        foods.append(pygame.Rect(random.randint(0, WINDOWWIDTH - FOODSIZE), random.randint(0, WINDOWHEIGHT - FOODSIZE), FOODSIZE, FOODSIZE))
+        foods.append(
+            pygame.Rect(random.randint(0, WINDOWWIDTH - FOODSIZE), random.randint(0, WINDOWHEIGHT - FOODSIZE), FOODSIZE,
+                        FOODSIZE))
 
     # draw the black background onto the surface
     windowSurface.fill(BLACK)

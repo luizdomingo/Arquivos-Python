@@ -29,6 +29,7 @@ import time
 import pygame
 import sys
 from pygame.locals import *
+
 """Here we import modules that our game needs. random has random number functions, time has the sleep() function, sys has the exit() function, and pygame contains all the pygame-related functions.
 Aqui nós importamos módulos que nosso game precisa. "random" tem funções de números aleatórios, "time" tem a função sleep(), "sys" tem a função exit() e "pygame" contém todas as funções relacionadas ao paygame.
 
@@ -96,6 +97,7 @@ Mas se em vez disso usarmos valores constantes e cometermos um erro similar de d
 ...then Python crashes when it comes across this line because there is no such variable as DWON, just DOWN. Why is crashing a good thing? Well, it's not, but in this case it would immediately alert us that there is a problem, and we could fix it. If we had used a string instead, it might take a while to track down where the bug is caused. Using constants in this way helps us ensure that our program works correctly.
 """
 
+
 def main():
     global MAINCLOCK, MAINSURF, BASICFONT
     """The main() function is where our program begins. (See the last two lines of code to see why.) Normally, because we define MAINCLOCK and MAINSURF and BASICFONT inside this function, these are local variables to the main() function and the names MAINCLOCK and MAINSURF and BASICFONT won't exist outside of this function. By using a global statement, we can tell Python that we want these variables to be global variables.
@@ -124,13 +126,14 @@ def main():
 
     The call to the pygame.font.Font() constructor function creates a Font object. We will store this Font object in the global variable BASICFONT.
     A chamada a função pygame.font.Font() cria um obejto Font. Amazenaremos este objeto Font na variável global BASICFONT."""
-    
+
     showStartScreen()
     while True:
         gameLoop()
         showGameOverScreen()
     """The animation of the rotating "Snakey!" text is handling inside the showStartScreen() function and will be explained later. After the call to showStartScreen() returns, we enter an infinite loop where the main part of the game is run (in the gameLoop() function) and then the "game over" screen is show (in the showGameOverScreen() function) when the game ends. Because this loop keeps looping, the game starts again after the showGameOverScreen() is done.
        A animação do texto da "Snakey! (cobra)" giratória é manipulado dentro da função showStartScreen() e explicaremos mais tarde. Após a chamada a showStartScreen() retornar, entramos em um laço (loop) infinito, onde a parte principal do jogo é executada (na função gameLoop()) e então a tela "game over" é mostrada (na função showGameOverScreen()) quando o jogo termina. Por causa desse laço manter o looping, o jogo inicia denovo depois da showGameOverScreen() estar pronta."""
+
 
 def showStartScreen():
     titleFont = pygame.font.Font('freesansbold.ttf', 100)
@@ -173,7 +176,7 @@ def showStartScreen():
         
         The degrees1 and degrees2 will track how many degrees we rotate the two pieces of text.
         Os "degrees1" e "degrees2" irão controlar quantos graus rotacionamos as duas partes do texto."""
-        
+
         MAINSURF.fill(BGCOLOR)
         """To wipe out the previous screen, first we fill MAINSURF will the background color we stored in BGCOLOR. Remember, the Surface object stored in MAINSURF is special because it was the Surface object returned by pygame.display.set_mode(), which means that what is drawn on this Surface object will appear on the screen when the pygame.display.update() function is called. All the other Surface objects just exist in the computer's memory and won't be displayed on the screen unless they are copied to MAINSURF with the blit() method.
         Para apagar a tela anterior, primeiro temos que preencher MAINSURF (superficie principal) com a cor de fundo que foi armazenada em BGCOLOR. Lembrando que, o objeto Superfície armazenado em MAINSURF é especial porque ele era a o objeto Surface retornado pelo pygame.display.set_mode(), que significa que o que está desenhado sobre este objeto Superficie aparecerá sobre a tela quando a função pygame.display.update() é chamada. Todos os outros objetos Superficie somente existem na memória do computador e não serão exibidos na tela a menos que sejam copiados para MAINSURF com o método blit().
@@ -188,7 +191,6 @@ def showStartScreen():
 
         Note that the original Surface object stored in the titleSurf1 is not rotated, but rather a copy of titleSurf1 is made and returned by pygame.transform.rotate() and it is that Surface object that is rotated.
         Note que o objeto Superficie original armazenado no titleSurf1 não é rotacionado, mas sim uma cópia de titleSurf1 é feita e retornada pelo pygame.transform.rotate() e é este objeto Superficie que é rotacionado """
-        
 
         rotatedRect1 = rotatedSurf1.get_rect()
         rotatedRect1.center = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2)
@@ -198,7 +200,6 @@ def showStartScreen():
         MAINSURF.blit(rotatedSurf1, rotatedRect1)
         """Here is the fifth step in getting text to appear on the screen: calling the Surface object's blit() method (in this case, the Surface object is the one in MAINSURF) so that we can copy the rotated surface to MAINSURF.
          Aqui é a quinta etapa na obtençao do texto que aparece na tela: chamando o objeto superficie pelo metodo blit() (neste caso, o objeto Superficie é um em MAINSURF) de modo que podemos copiar a superficie rotacionada para MAINSURF. """
-        
 
         rotatedSurf2 = pygame.transform.rotate(titleSurf2, degrees2)
         rotatedRect2 = rotatedSurf2.get_rect()
@@ -214,13 +215,11 @@ def showStartScreen():
             return
         """Rememeber that this code is currently in an infinite loop, and will repeat until the program execution reaches a break or return statement. Here, we call our checkForKeyPress() function (which we will define later) to see if the user has pressed any key. If this function returns True, then we execute a return statement and break out of showStartScreen().
            Lembrando que este código está em um loop infinito e repetirá até que a execução do programa chega a uma ruptura ou instrução de retorno. Aqui, chamamos nossa função checkForKeyPress() (que definiremos mais tarde) para ver se o usuário  tem pressionado qualquer tecla. Se esta função retorna True, então executa um instrução de retorno e sai da showStartScree(). """
-        
 
         pygame.display.update()
         MAINCLOCK.tick(FPS)
         """The call to pygame.display.update() takes everything drawn on the MAINSURF surface and draws it on the screen. The call to MAINCLOCK.tick() will then cause the program to wait for a fraction of a second. If we didn't have this call, then the program would draw frames of this animation as fast as possible. This means our game would run very fast on fast computers, and very slow on slow computers.
            A chamada a pygame.display.update() pega tudo desenhado na superficie MAINSURF e desenha na tela. A chamada a MAINCLOCK.tick() vai fazer o programa aguardar por uma fração de segundo. Se não temos esta chamada, em seguida o programa desenhará quadros de animação o mais rápido possível. Isto significa que nosso jogo seria executado muito rápido em computadores mais rápidos e muito lento em computadores lentos."""
-        
 
         degrees1 += 3
         degrees2 += 7
@@ -257,10 +256,10 @@ def terminate():
 def gameLoop():
     """This is where the main part of the game takes place. We have an infinite loop (the "while True:" loop) that handles player input, updating the state of the game world, and displaying the game world on the screen. The part before the infinite loop sets up variables for the start of a game. When the game is over, we return from this function.
        Esta é onde a parte principal do jogo ocorre. Temos um loop infinito (the "while True:" loop) que manipula a entrada do jogador, atualizando o estado do mundo do jogo e mostrando o mundo do jogo na tela.  A parte anterior ao loop infinto define variáveis para o inicio do jogo. Quando o jogo acaba, retornamos para esta função """
-    
+
     startx = random.randint(5, CELLWIDTH - 6)
     starty = random.randint(5, CELLHEIGHT - 6)
-    snakeCoords = [(startx, starty), (startx-1, starty)]
+    snakeCoords = [(startx, starty), (startx - 1, starty)]
     """The data structure that we will use to keep track of the snake is a list of tuples of two integers. Each tuple represents one segment of the snake. The two integers represent the x & y coordinates of the snake segment. The snake starts off with two segments at a random location.
        A estrutura de dados que usaremos para controlar a cobra é uma lista de tuplas com dois inteiros. Cada tupla representa um segmento da cobra. Os dois inteiros representam as coordenadas x e y do segmento da cobra. A cobra começa dois segmentos em uma localização aleatória. """
 
@@ -294,7 +293,7 @@ def gameLoop():
                                 
                 Also note that we don't want the snake to be able to turn in on itself and end the game. So if the snake is going right but the player pushes the left arrow key, we don't want to change the value in the direction variable.
                 Note que não desejamos que a cobra seja capaz de transformar a si mesma e terminar o jogo. Então, se a cobra está indo para a direita mas o jogador tecla a seta para a esquerda, não queremos mudar o valor na variavel de direção."""
-                
+
                 if (event.key == K_LEFT or event.key == K_a) and direction != RIGHT:
                     direction = LEFT
                 if (event.key == K_RIGHT or event.key == K_d) and direction != LEFT:
@@ -309,7 +308,8 @@ def gameLoop():
                     terminate()
 
         # check if the snake has hit itself or the edge
-        if snakeCoords[0][0] == -1 or snakeCoords[0][0] == CELLWIDTH or snakeCoords[0][1] == -1 or snakeCoords[0][1] == CELLHEIGHT:
+        if snakeCoords[0][0] == -1 or snakeCoords[0][0] == CELLWIDTH or snakeCoords[0][1] == -1 or snakeCoords[0][
+            1] == CELLHEIGHT:
             """The condition in this if statement checks if the head of the snake (which will always be the tuple in snakeCoords[0]) has gone past the edge. If does this by checking if the head's x coordinate (which is at snakeCoords[0][0]) has a value of -1 or CELLWIDTH or if the head's y coordinate (which is at snakeCoords[0][1]) has a value of -1 or CELLHEIGHT.
             A condição nesta declaração "if" checa se a cabeça da cobra (que será sempre a tupla em snakeCoords[0]) foi além da borda. Se faz isso verificando se a coordenada x  da cabeça (que está em snakeCoords[0][0]) tem valor de -1 ou CELLWIDTH ou se a coordenada y da cabeça (que está em snakeCoords[0][1]) tem o valor -1 ou CELLHEIGHT.
             
@@ -381,9 +381,9 @@ def showGameOverScreen():
        Aqui criamos um novo objeto Font com 150 letras grandes. Então, damos duas superfícies com "Game" e "Over" e mostramos elas na tela. """
 
     time.sleep(0.5)
-    checkForKeyPress() # clear out any key presses in the event queue made up to this point
+    checkForKeyPress()  # clear out any key presses in the event queue made up to this point
     """Because the next game will start immediately after we exit out of this loop, we want the "Game Over" text to stay on the screen for at least half a second. Then we also want to clear out all the key press events from the event queue. This will keep the player from accidentally skipping past the Game Over screen and starting the next game too soon because they pressed a key while the last game was still going on.
-       Devido ao próximo jogo começar imediatamente em seguida, saimos deste laço, queremos que o texto "Game Over" fique na tela pelo menos por meio segundo. Então, também queremos limpar todos os eventos a partir da lista de eventos. Isto irá evitar que o jogador acidentalmente pule após o Game Over na tela e inicie o próximo jogo muito cedo, porque pressionou um botão enquanto o último jogo ainda estava em curso.""" 
+       Devido ao próximo jogo começar imediatamente em seguida, saimos deste laço, queremos que o texto "Game Over" fique na tela pelo menos por meio segundo. Então, também queremos limpar todos os eventos a partir da lista de eventos. Isto irá evitar que o jogador acidentalmente pule após o Game Over na tela e inicie o próximo jogo muito cedo, porque pressionou um botão enquanto o último jogo ainda estava em curso."""
 
     """Now we enter an infinite loop that only returns from this function when the user has pressed a key.
        Agora entramos em um loop infinito que somente sai desta função quando o usuário pressionar uma tecla."""
@@ -410,6 +410,7 @@ def drawSnake(snakeCoords):
         """This code loops through each of the tuples in snakeCoords and draws a green square on the screen using the pygame.draw.rect() function.This is how we make the snake appear on the screen. Remember though, the MAINSURF surface won't appear on the screen until the pygame.display.update() function is called. This is done at the end of the gameLoop() function.
            Este código percorre através de cada uma das tuplas no snakeCoords e desenha um quadrado verde sobre a tela usando a função pygame.draw.rect(). Isto é como é feito para a cobra aparecer sobre a tela. Lembrando que, a  superficie MAINSURF não aparecerá na tela até quando a função pygame.display.update() for chamada. Isto é feito no fim da função gameLoop(). """
 
+
 def drawApple(coord):
     x = coord[0] * CELLSIZE
     y = coord[1] * CELLSIZE
@@ -426,5 +427,3 @@ if __name__ == '__main__':
        Esta declaração "if" é atualmente a primeira linha do código que está executando no programa (além das declarações de importação e as atribuições da variável constante. __name__ é uma variável especial que é criada implicitamente para todos os programas Python. Os valores armazenados nesta variável é a string '__main__', mas somente quando o script é executado por si mesmo. Se este script é importado por outro script, importa as declarações, daí o valor de __name__ será o nome do arquivo (se este script ainda tem o nome snakey.py, então a variável __name__ conterá 'snake')). 
     This is really handy if we ever want to use the functions that are in this program in another program. By having this if statement here, which then runs the main() function, we could have another program use "import snakey" and make use of any of the functions we've already written. Or if you want to test individual functions by calling them from the interactive shell, you could call them without running the game program. This trick is really handy for code reuse.
     Isto é realmente útil se quisermos usar as funções que estão neste programa em outro programa. Por ter essa instrução "if" aqui, que executa a função main (), poderíamos ter um outro programa usando "import snakey" e fazer uso de qualquer uma das funções que já foram escritas anteriormente. Ou se vc deseja testar funções individualmente chamando-as a partir de um shell interativo, vc pode chamá-las sem executar o programa do jogo. Esta estratégia é realmente útil para reutilização de código."""
-    
-

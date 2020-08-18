@@ -1,6 +1,6 @@
-#traduzido e adaptado de http://blog.trinket.io/writing-poetry-in-python/
+# traduzido e adaptado de http://blog.trinket.io/writing-poetry-in-python/
 from random import choice, randint
-    
+
 adjetivos = '''compreensivo temperamental confiável confiável honesto desonesto 
 interessante chato carinhoso simpático amigável generoso ciumento invejoso 
 inseguro ambicioso ansioso bondoso sensato sensível teimoso preguiçoso 
@@ -35,26 +35,26 @@ nomes = '''água concha palavra poesia face mulher resposta chave
            razão irmã semente rosa voz fada pessoa roupa separação
            reta curva viagem descoberta cidade vila despedida'''.split()
 
-print ('\n' + '='*16+' Um poema ' + '='*16)
-for x in range(randint(5,11)):
+print('\n' + '=' * 16 + ' Um poema ' + '=' * 16)
+for x in range(randint(5, 11)):
     palavras1 = ' '.join([choice(adjetivos) + ', ', choice(adjetivos)])
     palavras2 = ' '.join([choice(nomes), choice(verbos)])
     palavras3 = ' '.join([choice(nomes), choice(nomes), choice(adjetivos), choice(nomes)])
-    
-    for i in range(randint(2,5)):
+
+    for i in range(randint(2, 5)):
         palavras = choice([palavras1, palavras2, palavras3])
-        line = ' '*randint(0, 40 - len(palavras)) + palavras
-        print (line)
-    
-    if x % 3 ==0:
-        print ()
-        print (' '*5 + choice(nomes))
-        print (' '*5 + choice(nomes))
-        print (' '*5 + 'a ' + choice(nomes) +'!')
-        print ()
-    
-    if x % 7 ==0:
+        line = ' ' * randint(0, 40 - len(palavras)) + palavras
+        print(line)
+
+    if x % 3 == 0:
+        print()
+        print(' ' * 5 + choice(nomes))
+        print(' ' * 5 + choice(nomes))
+        print(' ' * 5 + 'a ' + choice(nomes) + '!')
+        print()
+
+    if x % 7 == 0:
         palavras4 = ' '.join([choice(adjetivos), choice(nomes), choice(verbos)])
-        print ()
-        print (' '.join(palavras4))
-        print ()
+        print()
+        print(' '.join(palavras4))
+        print()

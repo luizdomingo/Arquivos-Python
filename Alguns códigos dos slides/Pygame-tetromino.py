@@ -25,6 +25,7 @@ import time
 import pygame
 import sys
 from pygame.locals import *
+
 """Here we import modules that our game needs. random has random number functions, time has the sleep() function, sys has the exit() function, and pygame contains all the pygame-related functions.
 Aqui nós importamos módulos que nosso game precisa. random tem funções de números aleatórios, time tem a função sleep(), sys tem a função exit(), e pygame contém todas as funções relacionadas ao paygame.
 
@@ -75,13 +76,13 @@ The y coordinate of the top of the board is calculated by taking the full height
 A coordenada y do topo do tabuleiro é calculada pegando a altura total da janela e subtraindo a altura do tabuleiro em pixels (que é BOARDHEIGHT * BLOCKSIZE) e então subtraindo 5 pixels a partir deste. Os 5 pixels extra são removidos porque queremos abrir espaço para a borda azul que gira em torno do tabuleiro"""
 
 #            R    G    B
-WHITE =    (255, 255, 255)
-BLACK =    (0,     0,   0)
-RED =      (155,   0,   0)
-GREEN =    (0,   155,   0)
-BLUE =     (0,     0, 155)
-YELLOW =   (155, 155,   0)
-DARKGRAY = (40,   40,  40)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (155, 0, 0)
+GREEN = (0, 155, 0)
+BLUE = (0, 0, 155)
+YELLOW = (155, 155, 0)
+DARKGRAY = (40, 40, 40)
 
 BORDERCOLOR = BLUE
 BGCOLOR = BLACK
@@ -242,12 +243,14 @@ A expressão spam[2][1] seria avaliada para 'X', mesmo que pareça que deveria s
 
 This can get confusing for us as we write our program, so let's write some code that changes this around. The following for loops go through each piece, rotation, and then column to switch these values.
 Isto pode causar confusão para escrever nosso programa. O seguinte laço "for" percorre cada peça, rotação, e em seguida a coluna para mudar esses valores. """
-for p in PIECES: # loop through each piece / Laço que percorre cada peça
-    for i in range(len(PIECES[p])): # loop through each rotation of the piece / Laço que percorre cada rotação da peça
+for p in PIECES:  # loop through each piece / Laço que percorre cada peça
+    for i in range(len(PIECES[p])):  # loop through each rotation of the piece / Laço que percorre cada rotação da peça
         shapeData = []
-        for x in range(5): # loop through each column of the rotation of the piece / Laço que percorre cada coluna da rotação da peça
+        for x in range(
+                5):  # loop through each column of the rotation of the piece / Laço que percorre cada coluna da rotação da peça
             column = []
-            for y in range(5): # loop through each character in the column of the rotation of the piece /Laço que percorre cada caracter na coluna da rotação da peça
+            for y in range(
+                    5):  # loop through each character in the column of the rotation of the piece /Laço que percorre cada caracter na coluna da rotação da peça
                 if PIECES[p][i][y][x] == '.':
                     column.append(BLANK)
                 else:
@@ -282,13 +285,13 @@ def main():
 
     The call to the pygame.font.Font() constructor function creates a Font object. We will store this Font object in the global variable BASICFONT.
     A chamada a função pygame.font.Font() cria um obejto Font. Amazenaremos este objeto Font na variável global BASICFONT."""
-    
+
     # Start of the game:
     showTextScreen('Tetromino')
     while True:
         """First we will randomly pick which music to play as the background music, either tetrisb.mid or tetrisc.mid
         Primeiro vamos escolher aleatoriamente qual a música tocará como música de fundo, tetrisb.mid ou tetrisc.mid"""
-        
+
         if random.randint(0, 1) == 0:
             pygame.mixer.music.load('tetrisb.mid')
         else:
@@ -305,6 +308,7 @@ def main():
         showTextScreen('Game Over')
     """The above code handles showing the start screen, then goes into a repeating loop of playing the main game and then showing the "Game Over" screen when the game is over. After that, it loops back to playing the game again. This will keep happening until the player shuts off the program (which is done from inside the gameLoop() or showTextScreen() functions, explained later.)
        O código acima manipula e mostra a tela inicial, depois entra em um loop de repetição jogando o jogo principal e depois, mostra o "Game Over" na tela quando o jogo acabou. Depois disto, o loop volta a jogar o game outra vez. Isto continua acontecendo até o jogador desligar o programa (que é feito dentro das funções gameLoop() ou showTextScreen() explicadas mais tarde.)"""
+
 
 def showTextScreen(text):
     # This function displays large text in the center of the screen. / Esta função mostra textos grandes no centro da tela.
@@ -353,6 +357,7 @@ def showTextScreen(text):
         Here, we call our checkForKeyPress() function (which we will define later) to see if the user has pressed any key. If this function returns None, then we know a key has not been pressed and we should continue to loop.
         Aqui chamamos nossa função checkForKeyPress() (que definiremos mais tarde) para ver se o usuário pressionou alguma tecla. Se está função retorna None, então sabemos que uma tecla não foi pressionada e devemos continuar o loop.
         """
+
 
 def terminate():
     pygame.quit()
@@ -404,12 +409,12 @@ def gameLoop():
                currentPiece será definida None imediatamente após a peça ter sido depositada no fundo do tabuleiro. Assim é como nós sabemos definir currentPiece para nextPiece e então obter uma nova peça para nextPiece. """
             currentPiece = nextPiece
             nextPiece = getNewPiece()
-            lastFallTime = time.time() # reset lastFallTime
+            lastFallTime = time.time()  # reset lastFallTime
 
             if not isValidPosition(board, currentPiece):
                 """If the initial position of the new piece that has just started to fall is invalid, then we know that the board must be filled up all the way to the top and the player has lost. We call break to break out of the main game loop.
                    Se a posição inicial da nova peça que acaba de começar a cair é inválida, então sabemos que o tabuleiro deve ser preenchido por todo o caminho até o topo e que o jogador perdeu. Chamamos a pausa para sair do loop principal do jogo."""
-                break # game over
+                break  # game over
 
         # handle any input from the player
         for event in pygame.event.get():
@@ -490,7 +495,7 @@ def gameLoop():
                     for i in range(1, BOARDHEIGHT):
                         if not isValidPosition(board, currentPiece, adjY=i):
                             break
-                    currentPiece['y'] += (i-1)
+                    currentPiece['y'] += (i - 1)
                     """The space key will automatically drop the current piece all the way to the bottom. We do this by looping through 1 to the total height of the board, checking to see if that the current piece were moved down by an incremental amount would result in an invalid position on the board (that is, past the bottom or overlapping with other blocks.) Once we find this point, we just set the current piece the the row above that point.
                        A tecla de espaço vai descer automaticamente a peça atual por todo o caminho até o fundo. Fazemos isso percorrendo de 1 até a altura total do tabuleiro, verificando para ver se aquela peça atual foi movida para baixo por uma quantidade adicional que resultaria em uma posição inválida no tabuleiro (isto é, passado o fundo ou se sobrepondo aos outros blocos.) Uma vez que encontramos esse ponto, basta definir a peça atual na linha acima desse ponto."""
 
@@ -509,7 +514,8 @@ def gameLoop():
                 currentPiece['x'] += 1
             lastMoveSidewaysTime = time.time()
 
-        if movingDown and time.time() - lastMoveDownTime > MOVEDOWNFREQ and isValidPosition(board, currentPiece, adjY=1):
+        if movingDown and time.time() - lastMoveDownTime > MOVEDOWNFREQ and isValidPosition(board, currentPiece,
+                                                                                            adjY=1):
             currentPiece['y'] += 1
             lastMoveDownTime = time.time()
             """Moving the piece downward is similar: we check if the down arrow key is pressed by looking at the movingDown varaible and if more than MOVEDOWNFREQ seconds have elapsed since the last time the piece moved down. And finally, if the new position is valid, the piece will fall down and we will reset lastMoveDownTime to the current time.
@@ -563,8 +569,10 @@ def calculateLevel(score):
 def calculateFallFreq(level):
     return 0.27 - (level * 0.02)
 
+
 """The code to calculate the level and falling frequency is done based on a simple equation.
    O código para calcular o nível e a frequência de queda é feita baseada em uma simples equação."""
+
 
 def getNewPiece():
     # return a random new piece in a random rotation and color
@@ -575,7 +583,7 @@ def getNewPiece():
                 'rotation': random.randint(0, len(PIECES[shape]) - 1),
                 'x': int(BOARDWIDTH / 2) - 2,
                 'y': -2,
-                'color': random.randint(0, len(COLORS)-1)}
+                'color': random.randint(0, len(COLORS) - 1)}
     return newPiece
 
 
@@ -688,13 +696,14 @@ def deleteCompleteLines(board):
             linesDeleted += 1
             for pullDownY in range(y, 0, -1):
                 for x in range(BOARDWIDTH):
-                    board[x][pullDownY] = board[x][pullDownY-1]
+                    board[x][pullDownY] = board[x][pullDownY - 1]
             # Set very top line to blank.
             for x in range(BOARDWIDTH):
                 board[x][0] = BLANK
         else:
             y -= 1
     return linesDeleted
+
 
 def convertToPixelCoords(x, y):
     # Convert the given xy coordinates of the board to xy coordinates of the location on the screen.
@@ -708,12 +717,14 @@ def convertToPixelCoords(x, y):
 
 def drawBoardBorder():
     # draw the border around the board
-    pygame.draw.rect(MAINSURF, BORDERCOLOR, (XMARGIN - 3, TOPOFBOARD - 7, (BOARDWIDTH * BLOCKSIZE) + 8, (BOARDHEIGHT * BLOCKSIZE) + 8), 5)
+    pygame.draw.rect(MAINSURF, BORDERCOLOR,
+                     (XMARGIN - 3, TOPOFBOARD - 7, (BOARDWIDTH * BLOCKSIZE) + 8, (BOARDHEIGHT * BLOCKSIZE) + 8), 5)
     """This line draws a solid rectangle of the background color over the board, erasing any previous drawing.
     Esta linha desenha um retângulo sólido da cor de fundo sobre o tabuleiro, apagando desenhos anteriores.
     
     The parameters for pygame.draw.rect are: the pygame.Surface object to draw the rectangle on, the color to use, a tuple of four number values (top, left, width, and height in pixels), and optionally the width of the rectangle's line. If the line width parameter is omitted, then a solid rectangle will be drawn instead of just an outline.
     Os parâmetros para pygame.draw.rect  são: o objeto pygame.Surface para desenhar o retangulo, a cor para usar, uma tupla de 4 números (topo, esquerda, largura, e altura em pixels), e, opcionalmente, a largura da linha do retângulo. Se o parâmetro da largura da linha é omitido, então um retângulo sólido será desenhado em vez de somente o contorno."""
+
 
 def drawBoard(board):
     drawBoardBorder()
@@ -724,12 +735,13 @@ def drawBoard(board):
         for y in range(BOARDHEIGHT):
             if board[x][y] != BLANK:
                 pixelx, pixely = convertToPixelCoords(x, y)
-                pygame.draw.rect(MAINSURF, COLORS[board[x][y]], (pixelx+1, pixely+1, BLOCKSIZE-1, BLOCKSIZE-1))
+                pygame.draw.rect(MAINSURF, COLORS[board[x][y]], (pixelx + 1, pixely + 1, BLOCKSIZE - 1, BLOCKSIZE - 1))
                 """Next, we want to draw each block that is on the board. Recall that the board data structure is a list of list such that the value at board[x][y] is set to BLANK if the xy block space does not have a block in it, and set to an integer which is an index in the COLORS list if there is a block. The specific integer determines what color the block at that position is.
                 Em seguida, queremos desenhar cada bloco que está sobre o tabuleiro. Lembre-se que a estrutura de dados do tabuleiro é uma lista de listas na qual o valor em board[x][y] definido como BLANK se o espaço de blocos em xy não tem o bloco nele, e definimos para um inteiro que é um índice na lista COLORS se existe um bloco. O inteiro especifico determina qual a cor do bloco e em qual posição está. 
 
                 The two nested for loops will loop through every possible xy board coordinate. If the block space is blank, then the if statement's condition (board[x][u] != BLANK) will be False and the code simply continues to the next iteration. Otherwise, after converting from board coordinates to the pixel coordinates, we draw the block in the correct position with the correct color. Note that the blocks are always BLOCKSIZE in pixels for width and height.
                 Os dois loops for aninhados percorrerão todas as possíveis direções de coordenadas xy. Se o espaço do bloco está em branco, então a condição if (board[x][u]!= BLANK) será False e o código simplesmente continua até a próxima iteração. Caso contrário, após a conversão das coordenadas do tabuleiro para as coordenadas do pixel, desenhamos o bloco na posição correta com a cor correta. Observe que os blocos são sempre BLOCKSIZE em pixels para a largura e altura. """
+
 
 def drawStatus(score, level):
     # draw the score text
@@ -747,6 +759,7 @@ def drawStatus(score, level):
     levelRect.topleft = (WINDOWWIDTH - 150, 50)
     MAINSURF.blit(levelSurf, levelRect)
 
+
 def drawNextPiece(piece):
     # draw the "next" text
     """This function is similar to the drawPiece() function, except that ignores the location data in the piece data structure (since the "next piece" is not drawn on the board) and instead calls drawPiece() with some custom coordinates.
@@ -759,7 +772,8 @@ def drawNextPiece(piece):
     nextRect.topleft = (WINDOWWIDTH - 120, 80)
     MAINSURF.blit(nextSurf, nextRect)
 
-    drawPiece(piece, customCoords=(WINDOWWIDTH-120, 100))
+    drawPiece(piece, customCoords=(WINDOWWIDTH - 120, 100))
+
 
 def drawPiece(piece, customCoords=(None, None)):
     """Normally drawPiece() will draw the piece based on the board xy coordinates that are stored inside the piece data structure itself. However, for the "next piece" piece, we want to draw it at a specific xy pixel coordinates on the window, rather than convert the board xy coordinates to pixel coordinates.
@@ -780,7 +794,8 @@ def drawPiece(piece, customCoords=(None, None)):
             """These nested for loops will go through all 25 of the possible block spaces in the piece data structure, and for all non-blank values it will draw the block to the screen using Pygame's pygame.draw.rect() function.
              Estes loops for aninhados percorrerão todos os 25 possíveis espaços na estrutura de dados da peça, e para todos os valores não-brancos desenhará o bloco na tela usando a função pygame.draw.rect()."""
             if shapeToDraw[x][y] != BLANK:
-                pygame.draw.rect(MAINSURF, COLORS[piece['color']], (pixelx + (x * BLOCKSIZE) + 1, pixely + (y * BLOCKSIZE) + 1, BLOCKSIZE-1, BLOCKSIZE-1))
+                pygame.draw.rect(MAINSURF, COLORS[piece['color']], (
+                    pixelx + (x * BLOCKSIZE) + 1, pixely + (y * BLOCKSIZE) + 1, BLOCKSIZE - 1, BLOCKSIZE - 1))
 
 
 if __name__ == '__main__':

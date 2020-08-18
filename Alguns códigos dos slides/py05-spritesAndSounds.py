@@ -108,7 +108,6 @@ while True:
     if moveRight and player.right < WINDOWWIDTH:
         player.right += MOVESPEED
 
-
     # draw the block onto the surface
     windowSurface.blit(playerStretchedImage, player)
 

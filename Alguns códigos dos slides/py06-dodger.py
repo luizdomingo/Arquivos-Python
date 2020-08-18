@@ -13,9 +13,11 @@ BADDIEMAXSPEED = 50
 ADDNEWBADDIERATE = 10
 PLAYERMOVERATE = 5
 
+
 def terminate():
     pygame.quit()
     sys.exit()
+
 
 def waitForPlayerToPressKey():
     while True:
@@ -23,9 +25,10 @@ def waitForPlayerToPressKey():
             if event.type == QUIT:
                 terminate()
             if event.type == KEYDOWN:
-                if event.key == K_ESCAPE: # pressing escape quits
+                if event.key == K_ESCAPE:  # pressing escape quits
                     terminate()
                 return
+
 
 def playerHasHitBaddie(playerRect, baddies):
     for b in baddies:
@@ -33,11 +36,13 @@ def playerHasHitBaddie(playerRect, baddies):
             return True
     return False
 
+
 def drawText(text, font, surface, x, y):
     textobj = font.render(text, 1, TEXTCOLOR)
     textrect = textobj.get_rect()
     textrect.topleft = (x, y)
     surface.blit(textobj, textrect)
+
 
 # set up pygame, the window, and the mouse cursor
 pygame.init()
@@ -66,7 +71,6 @@ drawText('Press a key to start.', font, windowSurface, (WINDOWWIDTH / 3) - 30, (
 pygame.display.update()
 waitForPlayerToPressKey()
 
-
 topScore = 0
 while True:
     # set up the start of the game
@@ -78,8 +82,8 @@ while True:
     baddieAddCounter = 0
     pygame.mixer.music.play(-1, 0.0)
 
-    while True: # the game loop runs while the game part is playing
-        score += 1 # increase score
+    while True:  # the game loop runs while the game part is playing
+        score += 1  # increase score
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -111,7 +115,7 @@ while True:
                     slowCheat = False
                     score = 0
                 if event.key == K_ESCAPE:
-                        terminate()
+                    terminate()
 
                 if event.key == K_LEFT or event.key == ord('a'):
                     moveLeft = False
@@ -134,13 +138,13 @@ while True:
             baddieAddCounter = 0
             baddieSize = random.randint(BADDIEMINSIZE, BADDIEMAXSIZE)
             newBaddie = {'rect': pygame.Rect(
-                random.randint(0, WINDOWWIDTH-baddieSize),
+                random.randint(0, WINDOWWIDTH - baddieSize),
                 0 - baddieSize, baddieSize, baddieSize),
-                        'speed': random.randint(BADDIEMINSPEED,
-                                                BADDIEMAXSPEED),
-                        'surface':pygame.transform.scale(
-                            baddieImage, (baddieSize, baddieSize)),
-                        }
+                'speed': random.randint(BADDIEMINSPEED,
+                                        BADDIEMAXSPEED),
+                'surface': pygame.transform.scale(
+                    baddieImage, (baddieSize, baddieSize)),
+            }
             baddies.append(newBaddie)
 
         # Move the player around.
@@ -165,7 +169,7 @@ while True:
             elif slowCheat:
                 b['rect'].move_ip(0, 1)
 
-         # Delete baddies that have fallen past the bottom.
+        # Delete baddies that have fallen past the bottom.
         for b in baddies[:]:
             if b['rect'].top > WINDOWHEIGHT:
                 baddies.remove(b)
@@ -189,7 +193,7 @@ while True:
         # Check if any of the baddies have hit the player.
         if playerHasHitBaddie(playerRect, baddies):
             if score > topScore:
-                topScore = score # set new top score
+                topScore = score  # set new top score
             break
 
         mainClock.tick(FPS)

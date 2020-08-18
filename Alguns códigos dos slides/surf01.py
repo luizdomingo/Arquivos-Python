@@ -5,4 +5,4 @@ for linha in f:
     if float(pontos) > maior:
         maior = float(pontos)
 f.close()
-print (maior)
+print(maior)

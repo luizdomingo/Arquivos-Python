@@ -1,4 +1,6 @@
-import pygame, sys, time
+import pygame
+import sys
+import time
 from pygame.locals import *
 
 # set up pygame
@@ -8,7 +10,7 @@ pygame.init()
 WINDOWWIDTH = 400
 WINDOWHEIGHT = 400
 windowSurface = pygame.display.set_mode(
-                    (WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
+    (WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption('Animation')
 
 # set up direction variables
@@ -27,9 +29,9 @@ BLUE = (0, 0, 255)
 WHITE = (255, 255, 255)
 
 # set up the block data structure
-b1 = {'rect':pygame.Rect(300, 80, 50, 100), 'color':RED, 'dir':DOWNRIGHT}
-b2 = {'rect':pygame.Rect(200, 200, 20, 20), 'color':GREEN, 'dir':DOWNLEFT}
-b3 = {'rect':pygame.Rect(120, 150, 60, 60), 'color':BLUE, 'dir':UPLEFT}
+b1 = {'rect': pygame.Rect(300, 80, 50, 100), 'color': RED, 'dir': DOWNRIGHT}
+b2 = {'rect': pygame.Rect(200, 200, 20, 20), 'color': GREEN, 'dir': DOWNLEFT}
+b3 = {'rect': pygame.Rect(120, 150, 60, 60), 'color': BLUE, 'dir': UPLEFT}
 blocks = [b1, b2, b3]
 
 # run the game loop

@@ -3,7 +3,6 @@ mes = '''janeiro fevereiro março
     setembro outubro novembro
     dezembro'''.split()
 
-d,m,a=input('dd/mm/aaaa: ').split('/')
+d, m, a = input('dd/mm/aaaa: ').split('/')
 
-print(f'{d} de {mes[int(m)-1]} de {a}')
-
+print(f'{d} de {mes[int(m) - 1]} de {a}')
